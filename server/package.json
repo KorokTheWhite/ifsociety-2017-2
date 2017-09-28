@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "description": "The back-end application",
+  "version": "1.0.0",
+  "author": "",
+  "private": true,
+  "scripts": {
+    "start": "nodemon src/app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.5",
+    "mongoose": "^4.11.13",
+    "morgan": "^1.9.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
