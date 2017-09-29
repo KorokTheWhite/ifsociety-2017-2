@@ -11,7 +11,7 @@ router
 
 function get(req, res) {
   Organization.find({}, '', (err, orgs) => {
-    if(err)
+    if (err)
       res.status(400).send(err);
     
     res.send(orgs);
@@ -21,7 +21,7 @@ function get(req, res) {
 function post(req, res) {
   const organization = createOrganization(req.body);
 
-  if(organization)
+  if (organization)
     organization.save(() => {
       res.status(201).send(organization);
     });
@@ -35,7 +35,15 @@ function put(req, res) {
 }
 
 function del(req, res) {
-  res.send('Deleted');
+  Organization.findOneAndRemove({ cnpj: req.body.cnpj }, (err, org) => {
+    if (err)
+      res.status(400).send(err);
+
+    if(org)
+      res.status(204).send();
+
+    res.status(404).send('The organization was not found in database');
+  })
 }
 
 module.exports = router;
