@@ -1,4 +1,6 @@
 const router = require('express').Router();
+const Organization = require('../schemas/organization');
+const createOrganization = require('../factory/organizationFactory');
 
 router
   .route('/')
@@ -12,7 +14,15 @@ function get(req, res) {
 }
 
 function post(req, res) {
-  res.send('eae men');
+  var organization = createOrganization(req.body);
+
+  if(organization)
+    organization.save(() => {
+      res.status(201).send(organization);
+    });
+  else
+    res.status(400).send('Invalid object');
+    
 }
 
 function put(req, res) {
