@@ -10,4 +10,4 @@ export default new Router({
     base: '/',
     mode: 'history',
     routes: []
-})
+});
