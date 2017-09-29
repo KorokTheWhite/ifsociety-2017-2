@@ -10,11 +10,16 @@ router
     .delete(del);
 
 function get(req, res) {
-  res.send('Hello world');
+  Organization.find({}, '', (err, orgs) => {
+    if(err)
+      res.status(400).send(err);
+    
+    res.send(orgs);
+  });
 }
 
 function post(req, res) {
-  var organization = createOrganization(req.body);
+  const organization = createOrganization(req.body);
 
   if(organization)
     organization.save(() => {
