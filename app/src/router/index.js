@@ -41,15 +41,15 @@ export default new Router({
       component: OngFeed,
     },
     {
-      path: '/person-settings',
+      path: '/settings/person',
       component: PersonSettings,
     },
     {
-      path: '/ong-settings',
+      path: '/settings/ong',
       component: OngSettings,
     },
     {
-      path: '/add-donation',
+      path: '/donation/add',
       component: AddDonation,
     },
 
