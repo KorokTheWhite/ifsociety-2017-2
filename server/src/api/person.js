@@ -13,12 +13,6 @@ router
   .put(put)
   .delete(del);
 
-// router
-//   .route('/donation')
-//   .get(getDonation)
-//   .put(updateDonate)
-//   .delete(delDonation);
-
 function getAllUsers(req, res) {
   Person.find({}, function (err, person) {
     if (err) {
@@ -58,48 +52,48 @@ function post(req, res) {
 }
 
 function put(req, res) {
-  const cpf = req.params.cpf;
-  const user = {};
-  const userData = req.body[0];
-
-  Person.findOne({
-    cpf: cpf
-  }, function (err, foundObject) {
-
-    if (err) {
-      console.log(err);
-      res.status(500).send();
-    } else {
-      if (!foundObject) {
-        console.log(foundObject);
-        res.status(404).send();
-      } else {
-        if (userData.name) {
-          user.name = userData.name;
-        }
-
-        if (userData.email) {
-          user.email = userData.email;
-        }
-
-        if (userData.address) {
-          user.address = userData.address;
-        }
-
-        foundObject.save(function (err, updateObject) {
-          if (err) {
-            res.status(500).send();
-          } else {
-            res.send(updateObject);
-          }
-        });
-      }
-    }
+  findAndValidate(req, res, (user) => {
+    const updateUser = req.body;
+    console.log(updateUser);
+    if(updateUser.name)
+      user.name = updateUser.name;
+    if(updateUser.address)
+      user.address = updateUser.address;
+    
+    user.save((err) => {
+      if (err) 
+        res.status(500).send(err);
+      else
+        res.send(user);
+    })
   });
 }
 
+function findAndValidate(req, res, callback) {
+  Person.findOne({ cpf: req.params.cpf }, (err, user) => {
+    console.log(user);    
+    if(user) {
+      let uuid = req.get('uuid');
+
+      if(uuid === user.uuid[0]) {
+        callback(user);
+
+        return; 
+      }        
+    }    
+    res.status(404).send('The user was not found in database');
+  })
+}
+
 function del(req, res) {
-  res.status(200).send();
+  findAndValidate(req, res, (user) => {
+    Person.remove(user, (err) => {
+      if(err)
+        res.status(500).send(err);
+      else 
+        res.send('Successfully deleted.');
+    })
+  });
 }
 
 module.exports = router;
