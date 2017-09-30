@@ -13,8 +13,8 @@ organizationSchema.methods.findByUuid = function (cb) {
   return this.model(MODEL_NAME).find({ uuid: this.uuid }, cb);
 }
 
-organizationSchema.methods.findByCnpj = function (cb) {
-  return this.model(MODEL_NAME).find({ cnpj: this.cnpj }, cb);
+organizationSchema.statics.findByCnpj = function (cnpj, cb) {
+  return this.find({ cnpj: cnpj }, cb);
 }
 
 organizationSchema.methods.findByCnas = function (cb) {
