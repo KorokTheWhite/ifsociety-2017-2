@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 //Components
-
+import PersonCadastre from './components/Header.vue';
 
 Vue.use(Router);
 
