@@ -114,11 +114,12 @@ function put(req, res) {
 
 function del(req, res) {  
   findAndValidate(req, res, (org) => {
-    Organization.remove(org, (err) => {
+    org.remove((err, result) => {
       if(err)
         res.status(500).send(err);
-      else
-        res.send('Successfully deleted.');
+      else {
+        res.send(result);
+      }
     });
   });
 }
