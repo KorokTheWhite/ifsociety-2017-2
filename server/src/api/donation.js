@@ -10,28 +10,67 @@ router
     .get(getPendent);
 
 router
+  .route('/accepted')
+    .get(getAccepted);
+
+router
+  .route('/expired')
+    .get(getExpired);
+
+router
+  .route('/completed')
+    .get(getCompleted);
+
+router
+  .route('/incompleted')
+    .get(getIncompleted);
+
+router
+  .route('/cancelled')
+    .get(getCancelled);
+
+router
   .route('/:id')
      .put(put)
      .get(getOne)
      .delete(del);
 
-function getPendent(req, res) {
+function getPendent(req, res, param) {
+  getDonation(req, res, 'Pendent');
+}
 
+function getAccepted(req, res, param) {
+  getDonation(req, res, 'Accepted');
+}
+
+function getExpired(req, res, param) {
+  getDonation(req, res, 'Expired');
+}
+
+function getCompleted(req, res, param) {
+  getDonation(req, res, 'Completed');
+}
+
+function getIncompleted(req, res, param) {
+  getDonation(req, res, 'Incompleted');
+}
+
+function getCancelled(req, res, param) {
+  getDonation(req, res, 'Cancelled');
+}
+
+function getDonation(req, res, param) {
   Person.findOne()
-        .select('donation')
-        .exec(function(err, donations) {
-          if (err)
-            res.status(500).send(err);
-          else{
-            res.send(donations
-              .donation
-              .filter((d) => d.state === 'Pendent'));
-
-          }
-                
-        });
-
-   
+    .select('donation')
+    .exec(function(err, donations) {
+      if (err)
+        res.status(500).send(err);
+      else{
+        res.send(donations
+          .donation
+          .filter((d) => d.state === param));
+      }                
+  });   
 }
 
 function getOne(req, res) {
@@ -79,7 +118,7 @@ function post(req, res) {
   else 
     res.status(400).send('Invalid parameters');  
 
-}
+} 
 
 
 function put(req, res) {
