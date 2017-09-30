@@ -17,12 +17,6 @@
           <li><a>Notificações</a></li>
         </ul>
       </template>
-      <p class="menu-label">
-        Sobre
-      </p>
-      <ul class="menu-list">
-        <li><a>Sobre</a></li>
-      </ul>
     </aside>
   </div>
 </template>
