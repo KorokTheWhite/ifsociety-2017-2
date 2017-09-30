@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 import Access from '../components/Access';
-import OngFeed from '@/components/OngFeed';
+import OngFeed from '../components/OngFeed';
 import Login from '../components/Login';
 import PersonRegister from '../components/PersonRegister';
 import OrganizationPerson from '../components/OrganizationRegister';
