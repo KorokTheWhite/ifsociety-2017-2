@@ -22,7 +22,7 @@
       }
     },
     methods() {
-      burguerClick() {
+      function burguerClick() {
         this.burguerIsActive = !this.burguerIsActive;
       }
     }
