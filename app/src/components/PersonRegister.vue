@@ -57,11 +57,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-// import * as auth from '@/services/auth';
-=======
 import * as auth from '@/services/auth';
->>>>>>> 6a2089cdb3b2835089521e54f1de31a503289944
 
 export default {
   data() {
