@@ -103,8 +103,6 @@ function put(req, res) {
 
     if (updatedOrg.name)
       org.name = updatedOrg.name;
-    if (updatedOrg.email)
-      org.email = updatedOrg.email;
       
     org.save((err) => {
       if (err) res.status(500).send(err);

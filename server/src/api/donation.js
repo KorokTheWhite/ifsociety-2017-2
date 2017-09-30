@@ -6,27 +6,27 @@ router
     .post(post)
 
 router
-  .route('/pendent')
+  .route('/pendent/:cpf')
     .get(getPendent);
 
 router
-  .route('/accepted')
+  .route('/accepted/:cpf')
     .get(getAccepted);
 
 router
-  .route('/expired')
+  .route('/expired/:cpf')
     .get(getExpired);
 
 router
-  .route('/completed')
+  .route('/completed/:cpf')
     .get(getCompleted);
 
 router
-  .route('/incompleted')
+  .route('/incompleted/:cpf')
     .get(getIncompleted);
 
 router
-  .route('/cancelled')
+  .route('/cancelled/:cpf')
     .get(getCancelled);
 
 router
@@ -35,40 +35,44 @@ router
      .get(getOne)
      .delete(del);
 
-function getPendent(req, res, param) {
+function getPendent(req, res) {
   getDonation(req, res, 'Pendent');
 }
 
-function getAccepted(req, res, param) {
+function getAccepted(req, res) {
   getDonation(req, res, 'Accepted');
 }
 
-function getExpired(req, res, param) {
+function getExpired(req, res) {
   getDonation(req, res, 'Expired');
 }
 
-function getCompleted(req, res, param) {
+function getCompleted(req, res) {
   getDonation(req, res, 'Completed');
 }
 
-function getIncompleted(req, res, param) {
+function getIncompleted(req, res) {
   getDonation(req, res, 'Incompleted');
 }
 
-function getCancelled(req, res, param) {
+function getCancelled(req, res) {
   getDonation(req, res, 'Cancelled');
 }
 
 function getDonation(req, res, param) {
-  Person.findOne()
+
+  Person.findOne({ 'cpf': req.params.cpf })
     .select('donation')
     .exec(function(err, donations) {
       if (err)
         res.status(500).send(err);
       else{
-        res.send(donations
+        if(donations)
+          res.send(donations
           .donation
           .filter((d) => d.state === param));
+        else
+            res.status(400).send();
       }                
   });   
 }

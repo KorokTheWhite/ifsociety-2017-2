@@ -19,8 +19,9 @@ function getAllUsers(req, res) {
       res.status(400).send('Ops');
       next();
     }
-    res.send(person);
-  })
+    res.send(person);    
+    
+  });  
 }
 
 function getUserByCpf(req, res) {
@@ -71,7 +72,7 @@ function put(req, res) {
 
 function findAndValidate(req, res, callback) {
   Person.findOne({ cpf: req.params.cpf }, (err, user) => {
-    console.log(user);    
+   
     if(user) {
       let uuid = req.get('uuid');
 
