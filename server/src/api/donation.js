@@ -57,7 +57,6 @@ function post(req, res) {
   }
   else 
     res.status(400).send('Invalid parameters');  
-
 }
 
 module.exports = router;

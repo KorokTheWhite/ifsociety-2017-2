@@ -13,12 +13,6 @@ router
   .put(put)
   .delete(del);
 
-// router
-//   .route('/donation')
-//   .get(getDonation)
-//   .put(updateDonate)
-//   .delete(delDonation);
-
 function getAllUsers(req, res) {
   Person.find({}, function (err, person) {
     if (err) {
