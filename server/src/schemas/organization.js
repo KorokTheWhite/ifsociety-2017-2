@@ -1,12 +1,22 @@
 const mongoose = require('mongoose');
 const MODEL_NAME = 'Organization';
-
+const STATE = ['A', 'D', 'P'];
 const organizationSchema = mongoose.Schema({
   name: String,
   email: String,
   uuid: { type: [String], index: true },
   cnpj: String,
   cnas: String,
+  donation: [{
+    person: Object,
+    date: { type: Date, default: Date.now },
+    state: { type: String, enum: STATE, default: 'P' },
+    products: [{
+      name: String,
+      type: { type: Boolean, default: true },
+      quantity: Number
+    }]
+  }]
 });
 
 organizationSchema.methods.findByUuid = function (cb) {
