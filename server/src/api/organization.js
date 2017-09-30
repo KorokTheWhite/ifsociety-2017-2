@@ -13,6 +13,18 @@ router
     .put(put)
     .delete(del);
 
+router
+  .route('/:cnpj/donations')
+    .get(getDonations);
+
+router 
+  .route('/:cnpj/:state')
+    .get(getDonationsByState);
+
+router
+  .route('/:cnpj/:donationId') // :donation is a id
+    .get(getOneDonation);
+
 function getAll(req, res) {
   Organization.find({}, (err, orgs) => {
     if (err)
@@ -29,6 +41,47 @@ function getOne(req, res) {
     if (org.length > 0) res.send(org);
     else 
       res.status(404).send('Organization not found');
+  });
+}
+
+function getDonations(req, res) {
+  Organization.find(req.params.cnpj)
+  .select('donation')
+  .exec((err, donation) => {
+    if (err) res.status(500).send();
+
+    if (donation) res.send(donation);
+  });
+}
+
+function getDonationsByState(req, res) {
+  Organization.find(req.params.cnpj)
+  .select({'donation': { $elemMatch: {'state': res.params.state}}})
+  .exec((err, donation) => {
+    if (err) res.status(500).send();
+
+    if (donation) res.send(donation);
+  })
+}
+
+function getOneDonation(req, res) {
+  Organization.find(req.params.cnpj)
+  .select({'donation': { $elemMatch: {'_id': req.params.donationId}}})
+  .exec((err, donation) => {
+    console.log(donation);
+    if (err) res.status(500).send();
+
+    if (donation) res.send(donation);
+  });
+}
+
+function getDonations(req, res) {
+  Organization.find(req.params.cnpj)
+  .select('donation')
+  .exec((err, donation) => {
+    if (err) res.status(500).send();
+
+    if (donation) res.send(donation);
   });
 }
 
