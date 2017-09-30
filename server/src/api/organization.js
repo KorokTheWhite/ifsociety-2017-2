@@ -4,17 +4,31 @@ const createOrganization = require('../factory/organizationFactory');
 
 router
   .route('/')
-    .get(get)
-    .post(post)
+    .get(getAll)
+    .post(post);
+
+router
+  .route('/:cnpj')
+    .get(getOne)
     .put(put)
     .delete(del);
 
-function get(req, res) {
-  Organization.find({}, '', (err, orgs) => {
+function getAll(req, res) {
+  Organization.find({}, (err, orgs) => {
     if (err)
       res.status(400).send(err);
-    
+
     res.send(orgs);
+  });
+}
+
+function getOne(req, res) {
+  Organization.findByCnpj(req.params.cnpj, (err, org) => {
+    if (err) res.status(500).send();
+
+    if (org.length > 0) res.send(org);
+    else 
+      res.status(404).send('Organization not found');
   });
 }
 
@@ -31,17 +45,44 @@ function post(req, res) {
 }
 
 function put(req, res) {
-  res.send('failed');
+  findAndValidate(req, res, (org) => {
+    const updatedOrg = req.body[0];
+
+    if (updatedOrg.name)
+      org.name = updatedOrg.name;
+    if (updatedOrg.email)
+      org.email = updatedOrg.email;
+      
+    org.save((err) => {
+      if (err) res.status(500).send(err);
+      else 
+        res.send(org);
+    })
+  })
 }
 
-function del(req, res) {
-  Organization.findOneAndRemove({ cnpj: req.body.cnpj }, (err, org) => {
-    if (err)
-      res.status(400).send(err);
+function del(req, res) {  
+  findAndValidate(req, res, (org) => {
+    Organization.remove(org, (err) => {
+      if(err)
+        res.status(500).send(err);
+      else
+        res.send('Successfully deleted.');
+    });
+  });
+}
 
-    if(org)
-      res.status(204).send();
+function findAndValidate(req, res, callback) {
+  Organization.findOne({ cnpj: req.params.cnpj }, (err, org) => {    
+    if(org) {
+      var uuid = req.get('uuid');
 
+      if(uuid === org.uuid[0]) {
+        callback(org);
+
+        return; 
+      }        
+    }    
     res.status(404).send('The organization was not found in database');
   })
 }
