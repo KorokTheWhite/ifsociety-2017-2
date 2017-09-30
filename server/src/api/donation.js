@@ -10,9 +10,10 @@ router
   .route('/pendent')
     .get(getPendent);
 
-// router
-//   .route('/:id')
-//     .put(put)
+router
+  .route('/:id')
+     .put(put)
+     .get(getOne)
 //     .delete(del);
 
 function getPendent(req, res) {
@@ -25,6 +26,20 @@ function getPendent(req, res) {
             res.send(donations);
         });
       
+}
+
+function getOne(req, res) {
+  Person.find({ 'donation._id': req.params.id })
+        .select('donation')
+        .exec(function(err, donation) {
+          if(!err){
+            if(donation)
+              res.send(donation);
+            else 
+              res.status(404).send('not found');
+          } else
+            res.status(500).send(err);        
+        })
 }
 
 function post(req, res) {
@@ -45,7 +60,7 @@ function post(req, res) {
         person.donation = [];
         person.donation.push(donation);
       }
-      console.log(person);
+
       person.save((err) => {
         if (err) 
           res.status(500).send(err);
@@ -58,6 +73,29 @@ function post(req, res) {
   else 
     res.status(400).send('Invalid parameters');  
 
+}
+
+
+function put(req, res) {
+  let uuid = req.get('uuid');
+  Person.findByUuid(uuid, (err, person) => {
+    if (!err) {
+      Person.find({ 'donation._id': req.params.id })
+            .update({ 'donation._id': req.params.id }, { 
+              '$set': 
+              {
+                'donation.$.name': req.body.name,
+                'donation.$.state': req.body.state,
+                'donation.$.products': req.body.products
+              } 
+            }, (err, person) => {
+              if (!err)
+                res.send(person);
+              else
+                res.send(err);
+            })
+    }
+  })
 }
 
 module.exports = router;
