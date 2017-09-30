@@ -51,12 +51,14 @@
           </div>
         </div>
       </div>
-      <button class="button is-pulled-right" type="submit">Cadastre-me</button>
+      <button class="button is-pulled-right is-primary" type="submit">Cadastre-me</button>
     </form>
   </div>
 </template>
 
 <script>
+import * as auth from '@/services/auth';
+
 export default {
   data() {
     return {
@@ -78,7 +80,9 @@ export default {
   },
   methods: {
     registerPerson() {
-
+      //name, email, uuid, cpf, address
+      //TODO: registrar pessoa com auth service
+      //auth.registerPerson(this.name, this.email, );
     },
   },
 };
