@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form class="form" @submit="registerPerson()">
+    <form class="form" @submit="register()">
       <div class="field">
         <div class="control">
           <input class="input" placeholder="Nome" type="text" v-model="name">
@@ -79,10 +79,18 @@ export default {
     };
   },
   methods: {
-    registerPerson() {
-      //name, email, uuid, cpf, address
-      //TODO: registrar pessoa com auth service
-      //auth.registerPerson(this.name, this.email, );
+    register() {
+      const address = {
+        street: this.street,
+        number: this.number,
+        squares: this.square,
+        city: this.city,
+        state: this.selectedState,
+      };
+
+      auth.registerVolunteer(this.name, this.email, this.password, this.cpf, address).then(() => {
+        this.$router.push('/');
+      });
     },
   },
 };
