@@ -1,10 +1,14 @@
 <template>
-  <div id="ong-feed">
+  <div id="ong-active-donations">
     <donation-list :donations="donations"></donation-list>
   </div>
 </template>
 
 <script>
+
+/* eslint-disable */
+
+import * as donation from '@/api/PersonDonation';
 import DonationList from '@/components/DonationList';
 
 export default {
@@ -27,13 +31,17 @@ export default {
             'goiabada',
           ],
           expiry: new Date(),
-          donator: 'korok',
+          organization: 'ong dois',
         },
       ],
     };
   },
   onCreated() {
-    // TODO: get pendent donations
+    donation.getCompletedDonations().then((data) => {
+      console.log(data);
+    }).catch((error) => {
+      console.log(error);
+    });
   },
 };
 </script>

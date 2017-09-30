@@ -1,6 +1,5 @@
 <template>
   <div id="about">
-    <navbar></navbar>
     <div class="container">
       <h1 class="title">{{ appName }}</h1>
       <p>
@@ -14,17 +13,15 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar';
 import Footnote from '@/components/Footnote';
 
 export default {
   components: {
-    Navbar,
     Footnote,
   },
   data() {
     return {
-      appName: 'Nome Provisório',
+      appName: 'Doatop',
     };
   },
 };

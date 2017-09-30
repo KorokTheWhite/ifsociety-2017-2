@@ -5,7 +5,11 @@
         Acesso
       </p>
       <ul class="menu-list">
-        <li v-if="!userIsLogged"><a>Entrar</a></li>
+        <template v-if="!userIsLogged">
+          <li><a href="/access/login">Entrar</a></li>
+          <li><a href="/access/register/person">Cadastrar como Civil</a></li>
+          <li><a href="/access/register/organization">Cadastrar como Ong</a></li>
+        </template>
         <li v-else><a>Sair</a></li>
       </ul>
       <template v-if="userIsLogged">
@@ -14,7 +18,6 @@
         </p>
         <ul class="menu-list">
           <li><a>Configurações da Conta</a></li>
-          <li><a>Notificações</a></li>
         </ul>
       </template>
     </aside>

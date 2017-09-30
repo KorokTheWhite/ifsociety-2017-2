@@ -1,10 +1,14 @@
 <template>
-  <div id="ong-feed">
+  <div id="ong-active-donations">
     <donation-list :donations="donations"></donation-list>
   </div>
 </template>
 
 <script>
+
+/* eslint-disable */
+
+import * as donation from '@/api/organizationDonation';
 import DonationList from '@/components/DonationList';
 
 export default {
@@ -33,7 +37,11 @@ export default {
     };
   },
   onCreated() {
-    // TODO: get pendent donations
+    donation.getCompletedDonations().then((data) => {
+      console.log(data);
+    }).catch((error) => {
+      console.log(error);
+    });
   },
 };
 </script>

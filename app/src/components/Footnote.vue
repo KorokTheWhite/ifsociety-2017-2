@@ -17,7 +17,7 @@
 export default {
   data() {
     return {
-      appName: 'Nome Provisório',
+      appName: 'Doatop',
       githubURI: 'https://github.com/',
       collaborators: [
         {

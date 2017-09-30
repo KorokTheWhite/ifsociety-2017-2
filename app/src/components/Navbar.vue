@@ -2,8 +2,8 @@
   <div id="navbar">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="">
-          <img src="" alt="Logo">
+        <a class="navbar-item" href="/">
+          <img src="" alt="Doatop">
         </a>
         <!-- add notification icon here -->
         <button class="button navbar-burger" type="submit" v-bind:class="{'is-active' : burguerIsActive}" @click="burguerClick()">
