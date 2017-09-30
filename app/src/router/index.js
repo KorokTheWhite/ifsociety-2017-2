@@ -8,8 +8,7 @@ import PersonSettings from '../components/PersonSettings';
 import OngSettings from '../components/OngSettings';
 import AddDonation from '../components/AddDonation';
 import PersonRegister from '../components/PersonRegister';
-import OrganizationPerson from '../components/OrganizationRegister';
-
+import OrganizationPerson from '../components/OngRegister';
 
 Vue.use(Router);
 
