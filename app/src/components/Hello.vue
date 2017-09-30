@@ -58,14 +58,11 @@ $paleblue: #72d0eb;
 $green: #34f85b;
 $paleorange: #f26d4c;
 $orange: #cf1c44;
-=======
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+
 h1,
 h2 {
   font-weight: normal;
 }
->>>>>>> front-init:app/src/components/Hello.vue
 
 $primary: $palegreen;
 $info: $paleblue;
