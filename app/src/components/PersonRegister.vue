@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <form class="form" @submit="registerPerson()">
+    <form class="form" @submit="register()">
       <div class="field">
         <div class="control">
           <input class="input" placeholder="Nome" type="text" v-model="name">
@@ -51,12 +51,14 @@
           </div>
         </div>
       </div>
-      <button class="button is-pulled-right" type="submit">Cadastre-me</button>
+      <button class="button is-pulled-right is-primary" type="submit">Cadastre-me</button>
     </form>
   </div>
 </template>
 
 <script>
+import * as auth from '@/services/auth';
+
 export default {
   data() {
     return {
@@ -77,8 +79,18 @@ export default {
     };
   },
   methods: {
-    registerPerson() {
+    register() {
+      const address = {
+        street: this.street,
+        number: this.number,
+        squares: this.square,
+        city: this.city,
+        state: this.selectedState,
+      };
 
+      auth.registerVolunteer(this.name, this.email, this.password, this.cpf, address).then(() => {
+        this.$router.push('/');
+      });
     },
   },
 };

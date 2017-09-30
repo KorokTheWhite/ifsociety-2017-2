@@ -26,11 +26,13 @@
           <input class="input" placeholder="CNAS" type="text" v-model="cnas">
         </div>
       </div>
-      <button class="button is-pulled-right" type="submit">Cadastre-me</button>
+      <button class="button is-pulled-right is-primary" type="submit">Cadastre-me</button>
     </form>
   </div>
 </template>
 <script>
+import * as auth from '../services/auth';
+
 export default {
   data() {
     return {
@@ -42,8 +44,11 @@ export default {
     };
   },
   methods: {
-    registerOng() {
-
+    register() {
+      auth.registerOrganization(this.socialReason, this.email, this.password, this.cnpj, this.cnas)
+        .then(() => {
+          this.$router.push('/');
+        });
     },
   },
 };

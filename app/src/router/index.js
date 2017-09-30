@@ -4,8 +4,11 @@ import Router from 'vue-router';
 import About from '../components/About';
 import Access from '../components/Access';
 import Login from '../components/Login';
+import PersonSettings from '../components/PersonSettings';
+import OngSettings from '../components/OngSettings';
+import AddDonation from '../components/AddDonation';
 import PersonRegister from '../components/PersonRegister';
-import OrganizationPerson from '../components/OrganizationRegister';
+import OrganizationPerson from '../components/OngRegister';
 import OngLandingPage from '../components/OngLandingPage';
 import PersonLandingPage from '../components/PersonLandingPage';
 
@@ -47,5 +50,18 @@ export default new Router({
       name: 'Home Pessoa',
       component: PersonLandingPage,
     },
+    {
+      path: '/settings/person',
+      component: PersonSettings,
+    },
+    {
+      path: '/settings/ong',
+      component: OngSettings,
+    },
+    {
+      path: '/donation/add',
+      component: AddDonation,
+    },
+
   ],
 });
