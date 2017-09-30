@@ -15,6 +15,10 @@ const personSchema = new mongoose.Schema({
     state: String
   },
   donation: [{
+    organization: {
+      name: String,
+      email: String,
+    },
     id: Number,
     name: String,
     date: { type: Date, default: Date.now },
