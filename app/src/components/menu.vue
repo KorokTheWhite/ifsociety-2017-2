@@ -9,10 +9,11 @@
     </ul>
     <template v-if="userIsLogged">
       <p class="menu-label">
-        Configurações
+        Conta
       </p>
       <ul class="menu=list">
         <li><a>Configurações da Conta</a></li>
+        <li><a>Notificações</a></li>
       </ul>
     </template>
     <p class="menu=label">
