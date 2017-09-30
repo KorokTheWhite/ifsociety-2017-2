@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const MODEL_NAME = 'Person';
-const STATE = ['Accepted', 'Expired', 'Pendent', 'Completed', 'Incompleted'];
+const STATE = ['Accepted', 'Expired', 'Pendent', 'Completed', 'Incompleted', 'Cancelled'];
 
 const personSchema = new mongoose.Schema({
   name: String,

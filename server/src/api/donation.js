@@ -4,7 +4,6 @@ const createDonation = require('../factory/donationFactory');
 router
   .route('/')
     .post(post)
-    //.put(put);
 
 router
   .route('/pendent')
@@ -14,18 +13,25 @@ router
   .route('/:id')
      .put(put)
      .get(getOne)
-//     .delete(del);
+     .delete(del);
 
 function getPendent(req, res) {
-  Person.find({ 'donation.state': 'Pendent' })
+
+  Person.findOne()
         .select('donation')
         .exec(function(err, donations) {
           if (err)
             res.status(500).send(err);
-          else
-            res.send(donations);
+          else{
+            res.send(donations
+              .donation
+              .filter((d) => d.state === 'Pendent'));
+
+          }
+                
         });
-      
+
+   
 }
 
 function getOne(req, res) {
@@ -96,6 +102,26 @@ function put(req, res) {
             })
     }
   })
+}
+
+function del (req, res) {
+  let uuid = req.get('uuid');
+  Person.findByUuid(uuid, (err, person) => {
+    if (person) {
+      
+      if (person.uuid[0] === uuid) 
+        Person.find({ 'donation._id': req.params.id})
+              .update({ 'donation._id': req.params.id }, {
+                '$set': { 'donation.$.state': 'Cancelled' }
+              }, (err, person) => {
+                if(!err)
+                  res.send(person);
+                else
+                  res.send(err);
+              })
+    }
+  })
+
 }
 
 module.exports = router;
