@@ -26,7 +26,7 @@
           <input class="input" placeholder="CNAS" type="text" v-model="cnas">
         </div>
       </div>
-      <button class="button is-pulled-right" type="submit">Cadastre-me</button>
+      <button class="button is-pulled-right is-primary" type="submit">Cadastre-me</button>
     </form>
   </div>
 </template>
