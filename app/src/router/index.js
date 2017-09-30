@@ -3,6 +3,8 @@ import Router from 'vue-router';
 
 import Access from '../components/Access';
 import Login from '../components/Login';
+import PersonRegister from '../components/PersonRegister';
+import OrganizationPerson from '../components/OrganizationRegister';
 
 Vue.use(Router);
 
@@ -14,6 +16,18 @@ export default new Router({
       path: '/access',
       component: Access,
       children: [
+        {
+          path: 'login',
+          component: Login,
+        },
+        {
+          path: 'register/person',
+          component: PersonRegister,
+        },
+        {
+          path: 'register/organization',
+          component: OrganizationPerson,
+        },
       ],
     },
   ],
