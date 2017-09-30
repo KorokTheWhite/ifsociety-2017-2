@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const MODEL_NAME = 'Organization';
-const STATE = ['A', 'D', 'P'];
+const STATE = ['Accepted', 'Expired', 'Pendent', 'Completed', 'Incompleted'];
+
 const organizationSchema = mongoose.Schema({
   name: String,
   email: String,
@@ -10,10 +11,11 @@ const organizationSchema = mongoose.Schema({
   donation: [{
     person: Object,
     date: { type: Date, default: Date.now },
-    state: { type: String, enum: STATE, default: 'P' },
+    state: { type: String, enum: STATE, default: 'Pendent' },
     products: [{
+      id: Number,
       name: String,
-      type: { type: Boolean, default: true },
+      isPerecible: { type: Boolean, default: true },
       quantity: Number
     }]
   }]

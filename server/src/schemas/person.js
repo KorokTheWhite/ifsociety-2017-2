@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const MODEL_NAME = 'Person';
-const STATE = ['A', 'D', 'P']; // A: Accept D: Dennied P: Pendent
+const STATE = ['Accepted', 'Expired', 'Pendent', 'Completed', 'Incompleted'];
 
 const personSchema = new mongoose.Schema({
   name: String,
@@ -9,19 +9,20 @@ const personSchema = new mongoose.Schema({
   cpf: String,
   address: String,
   donation: [{
+    id: Number,
     name: String,
     date: { type: Date, default: Date.now },
-    state: { type: String, enum: STATE, default: 'P' },
+    state: { type: String, enum: STATE, default: 'Pendent' },
     products: [{
       name: String,
-      type: { type: Boolean, default: true }, // Is perecivel
+      isPerecible: { type: Boolean, default: true },
       quantity: Number
     }]
   }]
 });
 
-personSchema.methods.findByUuid = function (cb) {
-  return this.model(MODEL_NAME).find({ uuid: this.uuid }, cb);
+personSchema.statics.findByUuid = function (uuid, cb) {
+  return this.findOne({ uuid: uuid }, cb);
 }
 
 personSchema.statics.findByCpf = function (cpf, cb) {
