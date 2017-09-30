@@ -9,7 +9,10 @@ const organizationSchema = mongoose.Schema({
   cnpj: String,
   cnas: String,
   donation: [{
-    person: Object,
+    person: {
+      name: String,
+      email: String
+    },
     date: { type: Date, default: Date.now },
     state: { type: String, enum: STATE, default: 'Pendent' },
     products: [{

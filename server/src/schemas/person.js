@@ -7,7 +7,13 @@ const personSchema = new mongoose.Schema({
   email: String,
   uuid: { type: [String], index: true },
   cpf: String,
-  address: String,
+  address: {
+    street: String,
+    number: String,
+    neighborhood: String,
+    city: String,
+    state: String
+  },
   donation: [{
     id: Number,
     name: String,
