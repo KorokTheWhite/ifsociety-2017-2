@@ -31,6 +31,8 @@
   </div>
 </template>
 <script>
+import * as auth from '../services/auth';
+
 export default {
   data() {
     return {
@@ -43,7 +45,10 @@ export default {
   },
   methods: {
     register() {
-
+      auth.registerOrganization(this.socialReason, this.email, this.password, this.cnpj, this.cnas)
+        .then(() => {
+          this.$router.push('/');
+        });
     },
   },
 };

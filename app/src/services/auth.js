@@ -29,6 +29,12 @@ export function registerVolunteer(name, email, password, cpf, address) {
   });
 }
 
-export function registerOrganization(name, email, uuid, cnpj, cnas, address) {
-  organization.create(name, email, uuid, cnpj, cnas, address);
+export function registerOrganization(name, email, password, cnpj, cnas) {
+  return new Promise((resolve, reject) => {
+    createFirebaseUser(email, password).then((user) => {
+      organization.create(name, email, user.uid, cnpj, cnas).then(() => {
+        resolve(user.uid);
+      }).catch(reject);
+    }).catch(reject);
+  });
 }
